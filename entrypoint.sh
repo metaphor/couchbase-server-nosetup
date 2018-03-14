@@ -85,6 +85,22 @@ else
   curl --silent "http://${HOSTNAME}:8091/node/controller/setupServices" \
     -d services="${SERVICES}"
 
+  numbered_echo "Setting up bucket1"
+  curl --silent "http://${HOSTNAME}:8091/pools/default/buckets" \
+    -d name=${BUCKET1} \
+    -d authType=sasl \
+    -d saslPassword=${BUCKET1PASS} \
+    -d bucketType=couchbase \
+    -d ramQuotaMB=100
+
+  numbered_echo "Setting up bucket2"
+  curl --silent "http://${HOSTNAME}:8091/pools/default/buckets" \
+    -d name=${BUCKET2} \
+    -d authType=sasl \
+    -d saslPassword=${BUCKET2PASS} \
+    -d bucketType=couchbase \
+    -d ramQuotaMB=100
+
   numbered_echo "Setting up user credentials"
   curl --silent "http://${HOSTNAME}:8091/settings/web" \
     -d port=8091 \
