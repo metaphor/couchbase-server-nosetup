@@ -101,6 +101,10 @@ else
     -d bucketType=couchbase \
     -d ramQuotaMB=100
 
+  numbered_echo "Setting global indexing mode "
+  curl --silent "http://${HOSTNAME}:8091/settings/indexes" \
+    -d storageMode=forestdb
+
   numbered_echo "Setting up user credentials"
   curl --silent "http://${HOSTNAME}:8091/settings/web" \
     -d port=8091 \
